@@ -1,5 +1,6 @@
 import React from "react";
 import HomePresenter from "./HomePresenter";
+import { moviesApi } from "api";
 
 export default class extends React.Component{
     state = {
@@ -10,8 +11,40 @@ export default class extends React.Component{
         loading: true
     };
 
+    async componentDidMount() {
+        try {
+            const {
+                // results를 nowPlaying으로 이름변경
+                // 변수명 변경하는법
+                data: {results : nowPlaying }
+            } = await moviesApi.nowPlaying();
+            const {
+                data: { results: upcoming }
+            } = await moviesApi.upcoming();
+
+            const {
+                data: { results: popular}
+            } = await moviesApi.popular();
+
+            this.setState({
+                nowPlaying,
+                upcoming,
+                popular
+            });
+        }catch(error) {
+            this.setState({
+                error: "Can't find Movies information."
+            });
+        }finally{
+            this.setState({
+                loading: false
+            })
+        }
+    }
+
     render() {
         const { nowPlaying, upcoming, popular, error, loading } = this.state;
+        console.log(this.state);
         return (
             <HomePresenter 
                 nowPlaying={nowPlaying} 
