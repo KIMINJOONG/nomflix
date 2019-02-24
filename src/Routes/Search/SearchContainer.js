@@ -1,6 +1,6 @@
 import React from "react";
 import SearchPresenter from "./SearchPresenter";
-import { movieApi, tvApi } from "api";
+import { moviesApi, tvApi } from "api";
 
 export default class extends React.Component{
     state = {
@@ -25,7 +25,7 @@ export default class extends React.Component{
         try{
             const {
                 data: {results : movieResults }
-            } = await movieApi.search(searchTerm);
+            } = await moviesApi.search(searchTerm);
             const {
                 data: {results : tvResults }
             } = await tvApi.search(searchTerm);
