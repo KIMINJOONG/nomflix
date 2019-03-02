@@ -14,6 +14,7 @@ export default class extends React.Component{
         };
     }
 
+
     async componentDidMount() {
         const { 
             match: {
@@ -50,6 +51,8 @@ export default class extends React.Component{
 
 
     }
+
+    
 
     render() {
         const { result, error, loading } = this.state;

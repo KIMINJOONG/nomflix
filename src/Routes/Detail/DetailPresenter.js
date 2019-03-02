@@ -58,7 +58,6 @@ const ItemContainer = styled.div`
 `;
 
 const Item = styled.span`
-
 `;
 
 const Divider = styled.span`
@@ -72,7 +71,18 @@ const Overview = styled.p`
     width: 50%;
 `;
 
-const DetailPresenter = ({ result, loading, error }) => 
+const Imdb = styled.div`
+    display: inline-block;
+    width: 30px;
+    height: 10px;
+    background-image: url(${props => props.imgPath});
+    background-size: cover;
+    border-radius: 4px;
+    background-position: center center;
+    cursor:pointer;
+`;
+
+const DetailPresenter = ({ result, loading, error, imdbClick }) => 
     loading ? (
         <>
         <Helmet>
@@ -103,6 +113,10 @@ const DetailPresenter = ({ result, loading, error }) =>
                                 ? genre.name 
                                 : `${genre.name} / `
                             )}
+                    </Item>
+                    <Divider>•</Divider>
+                    <Item>
+                        <Imdb imgPath={require("../../assets/imdb.png")} onClick={() => window.open(`https://imdb.com/title/${result.imdb_id}`,"_blank")}/>
                     </Item>
                 </ItemContainer>
                 <Overview>{result.overview}</Overview>
