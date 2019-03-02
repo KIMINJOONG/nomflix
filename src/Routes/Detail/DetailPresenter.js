@@ -69,6 +69,7 @@ const Overview = styled.p`
     opacity: 0.7;
     line-height: 1.5;
     width: 50%;
+    height: 145px;
 `;
 
 const Imdb = styled.div`
@@ -81,6 +82,41 @@ const Imdb = styled.div`
     background-position: center center;
     cursor:pointer;
 `;
+
+const TabMenu = styled.div`
+    width: 100%;
+    height:50px;
+    background-color: rgba(20, 20, 20, 0.8);
+    box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
+    margin-top: 20px;
+`;
+
+const List = styled.ul`
+    display:flex;
+`;
+
+const TabItem = styled.li`
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-bottom: 5px solid 
+        ${props => props.current === "youtube" ? "#3498db" : "transparent"};
+    transition: border-bottom .5s ease-in-out;
+`;
+
+const YoutbueContainer = styled.div`
+    width: 100%;
+    height: 482px;
+    overflow-y: auto;
+`;
+
+const Youtube = styled.iframe`
+    width: 100%;
+    height: 100%;
+`;
+
+
 
 const DetailPresenter = ({ result, loading, error, imdbClick }) => 
     loading ? (
@@ -120,6 +156,20 @@ const DetailPresenter = ({ result, loading, error, imdbClick }) =>
                     </Item>
                 </ItemContainer>
                 <Overview>{result.overview}</Overview>
+                <TabMenu>
+                    <List>
+                        <TabItem current={"youtube"}>
+                                예고편
+                        </TabItem>
+                    </List>
+                </TabMenu>
+                <YoutbueContainer>
+                    {result.videos.results && 
+                        result.videos.results.length > 0 ?
+                        result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} />)
+                        : <div><p>Can't find video</p></div>
+                    }
+                </YoutbueContainer>
             </Data>
         </Content>
     </Container>
