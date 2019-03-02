@@ -13,6 +13,6 @@ const Container = styled.div`
 
 export default () => (
     <Container>
-        <span role="img" aria-label="Loading">🤷</span>
+        <span role="img" aria-label="Loading">⏰</span>
     </Container>
 );
