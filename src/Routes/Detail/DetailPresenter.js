@@ -101,14 +101,17 @@ const TabItem = styled.li`
     line-height: 50px;
     text-align: center;
     border-bottom: 5px solid 
-        ${props => props.current === "youtube" ? "#3498db" : "transparent"};
+        ${props => props.current ? "#3498db" : "transparent"};
     transition: border-bottom .5s ease-in-out;
+    cursor: pointer;
 `;
 
-const YoutbueContainer = styled.div`
+const TabContainer = styled.div`
     width: 100%;
     height: 482px;
     overflow-y: auto;
+    display: 
+        ${props => props.current ? "block" : "none"};
 `;
 
 const Youtube = styled.iframe`
@@ -118,7 +121,7 @@ const Youtube = styled.iframe`
 
 
 
-const DetailPresenter = ({ result, loading, error, imdbClick }) => 
+const DetailPresenter = ({ result, loading, error, current, handleCurrent }) => 
     loading ? (
         <>
         <Helmet>
@@ -158,18 +161,28 @@ const DetailPresenter = ({ result, loading, error, imdbClick }) =>
                 <Overview>{result.overview}</Overview>
                 <TabMenu>
                     <List>
-                        <TabItem current={"youtube"}>
+                        <TabItem onClick={()=>handleCurrent("youtube")} current={current === "youtube"}>
                                 예고편
+                        </TabItem>
+                        <TabItem onClick={()=>handleCurrent("company")} current={current === "company"}>
+                                제작사
                         </TabItem>
                     </List>
                 </TabMenu>
-                <YoutbueContainer>
+                <TabContainer current={current === "youtube"}>
                     {result.videos.results && 
                         result.videos.results.length > 0 ?
                         result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} />)
                         : <div><p>Can't find video</p></div>
                     }
-                </YoutbueContainer>
+                </TabContainer>
+                <TabContainer current={current === "company"}>
+                    {result.production_companies && 
+                        result.production_companies.length > 0 ?
+                        result.production_companies.map((company) => <p key={company.id} title={company.name}>{company.name}</p>)
+                        : <div><p>Can't find video</p></div>
+                    }
+                </TabContainer>
             </Data>
         </Content>
     </Container>

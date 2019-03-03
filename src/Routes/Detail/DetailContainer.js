@@ -10,10 +10,16 @@ export default class extends React.Component{
             result: null,
             error: null,
             loading: true,
-            isMovie: pathname.includes("/movie/")
+            isMovie: pathname.includes("/movie/"),
+            current: "youtube"
         };
     }
 
+    handleCurrent = (currentState) => {
+        this.setState({
+            current: currentState
+        });
+    }
 
     async componentDidMount() {
         const { 
@@ -55,13 +61,15 @@ export default class extends React.Component{
     
 
     render() {
-        const { result, error, loading } = this.state;
+        const { result, error, loading, current } = this.state;
         console.log(result);
         return (
             <DetailPresenter 
                 result={result} 
                 error={error}
                 loading={loading}
+                handleCurrent={this.handleCurrent}
+                current={current}
             />
         );
     }
