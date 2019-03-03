@@ -119,6 +119,24 @@ const Youtube = styled.iframe`
     height: 100%;
 `;
 
+const CompanyContainer = styled.div`
+    display: inline-block;
+    width: 150px;
+    height: 200px;
+`;
+
+const CompanyLogo = styled.div`
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    background-image:url(${props => props.companyImg});
+    background-size: cover;
+`;
+
+const CompanyTitle = styled.span`
+
+`;
+
 
 
 const DetailPresenter = ({ result, loading, error, current, handleCurrent }) => 
@@ -177,11 +195,17 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                     }
                 </TabContainer>
                 <TabContainer current={current === "company"}>
-                    {result.production_companies && 
-                        result.production_companies.length > 0 ?
-                        result.production_companies.map((company) => <p key={company.id} title={company.name}>{company.name}</p>)
-                        : <div><p>Can't find video</p></div>
-                    }
+                    
+                        {result.production_companies && 
+                            result.production_companies.length > 0 ?
+                            result.production_companies.map((company) => company.logo_path && 
+                                <CompanyContainer>
+                                    <CompanyLogo key={company.id} companyImg={`https://image.tmdb.org/t/p/original${company.logo_path}`}/>
+                                    <CompanyTitle key={company.id}>{company.name}</CompanyTitle>
+                                </CompanyContainer>    
+                            )
+                            : <div><p>Can't find video</p></div>
+                        }
                 </TabContainer>
             </Data>
         </Content>
