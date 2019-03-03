@@ -107,6 +107,10 @@ const TabItem = styled.li`
 `;
 
 const TabContainer = styled.div`
+
+`;
+
+const TabContent = styled.div`
     width: 100%;
     height: 482px;
     overflow-y: auto;
@@ -115,22 +119,24 @@ const TabContainer = styled.div`
 `;
 
 const Youtube = styled.iframe`
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
 `;
 
 const CompanyContainer = styled.div`
     display: inline-block;
-    width: 150px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
+    margin-top: 10px;
 `;
 
 const CompanyLogo = styled.div`
     display: inline-block;
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 250px;
     background-image:url(${props => props.companyImg});
-    background-size: cover;
+    background-repeat: no-repeat;
 `;
 
 const CompanyTitle = styled.span`
@@ -177,35 +183,37 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                     </Item>
                 </ItemContainer>
                 <Overview>{result.overview}</Overview>
-                <TabMenu>
-                    <List>
-                        <TabItem onClick={()=>handleCurrent("youtube")} current={current === "youtube"}>
-                                예고편
-                        </TabItem>
-                        <TabItem onClick={()=>handleCurrent("company")} current={current === "company"}>
-                                제작사
-                        </TabItem>
-                    </List>
-                </TabMenu>
-                <TabContainer current={current === "youtube"}>
-                    {result.videos.results && 
-                        result.videos.results.length > 0 ?
-                        result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} />)
-                        : <div><p>Can't find video</p></div>
-                    }
-                </TabContainer>
-                <TabContainer current={current === "company"}>
-                    
-                        {result.production_companies && 
-                            result.production_companies.length > 0 ?
-                            result.production_companies.map((company) => company.logo_path && 
-                                <CompanyContainer>
-                                    <CompanyLogo key={company.id} companyImg={`https://image.tmdb.org/t/p/original${company.logo_path}`}/>
-                                    <CompanyTitle key={company.id}>{company.name}</CompanyTitle>
-                                </CompanyContainer>    
-                            )
+                <TabContainer>
+                    <TabMenu>
+                        <List>
+                            <TabItem onClick={()=>handleCurrent("youtube")} current={current === "youtube"}>
+                                    예고편
+                            </TabItem>
+                            <TabItem onClick={()=>handleCurrent("company")} current={current === "company"}>
+                                    제작사
+                            </TabItem>
+                        </List>
+                    </TabMenu>
+                    <TabContent current={current === "youtube"}>
+                        {result.videos.results && 
+                            result.videos.results.length > 0 ?
+                            result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} />)
                             : <div><p>Can't find video</p></div>
                         }
+                    </TabContent>
+                    <TabContent current={current === "company"}>
+                        
+                            {result.production_companies && 
+                                result.production_companies.length > 0 ?
+                                result.production_companies.map((company) => company.logo_path && 
+                                    <CompanyContainer key={company.id}>
+                                        <CompanyLogo companyImg={`https://image.tmdb.org/t/p/w300${company.logo_path}`}/>
+                                        <CompanyTitle>{company.name}({company.origin_country})</CompanyTitle>
+                                    </CompanyContainer>    
+                                )
+                                : <div><p>Can't find video</p></div>
+                            }
+                    </TabContent>
                 </TabContainer>
             </Data>
         </Content>
