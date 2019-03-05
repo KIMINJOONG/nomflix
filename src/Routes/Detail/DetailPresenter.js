@@ -137,6 +137,7 @@ const CompanyLogo = styled.div`
     height: 250px;
     background-image:url(${props => props.companyImg});
     background-repeat: no-repeat;
+    background-size: contain;
 `;
 
 const CompanyTitle = styled.span`
