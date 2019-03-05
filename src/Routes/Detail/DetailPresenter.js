@@ -192,6 +192,9 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                             <TabItem onClick={()=>handleCurrent("company")} current={current === "company"}>
                                     제작사
                             </TabItem>
+                            <TabItem onClick={() =>handleCurrent("collection")} current={current === "collection"}>
+                                    콜렉션
+                            </TabItem>
                         </List>
                     </TabMenu>
                     <TabContent current={current === "youtube"}>
@@ -202,16 +205,27 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                         }
                     </TabContent>
                     <TabContent current={current === "company"}>
-                        
-                            {result.production_companies && 
-                                result.production_companies.length > 0 ?
-                                result.production_companies.map((company) => company.logo_path && 
-                                    <CompanyContainer key={company.id}>
-                                        <CompanyLogo companyImg={`https://image.tmdb.org/t/p/w300${company.logo_path}`}/>
-                                        <CompanyTitle>{company.name}({company.origin_country})</CompanyTitle>
-                                    </CompanyContainer>    
-                                )
-                                : <div><p>Can't find video</p></div>
+                        {result.production_companies && 
+                            result.production_companies.length > 0 ?
+                            result.production_companies.map((company) => company.logo_path && 
+                                <CompanyContainer key={company.id}>
+                                    <CompanyLogo companyImg={`https://image.tmdb.org/t/p/w300${company.logo_path}`}/>
+                                    <CompanyTitle>{company.name}({company.origin_country})</CompanyTitle>
+                                </CompanyContainer>    
+                            )
+                            : <div><p>Can't find video</p></div>
+                        }
+                    </TabContent>
+                    <TabContent current={current === "collection"}>
+                            {result.belongs_to_collection &&
+                                <CompanyContainer>
+                                <CompanyLogo 
+                                    companyImg={
+                                        result.belongs_to_collection.poster_path &&
+                                        `https://image.tmdb.org/t/p/w300${result.belongs_to_collection.poster_path}`
+                                    }/>
+                                <CompanyTitle>{result.belongs_to_collection.name}</CompanyTitle>
+                            </CompanyContainer>
                             }
                     </TabContent>
                 </TabContainer>
