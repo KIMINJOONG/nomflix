@@ -12,33 +12,31 @@ export default class extends React.Component{
     };
 
     async componentDidMount() {
+        let nowPlaying, upcoming, popular, error;
         try {
-            const {
+             ({
                 // results를 nowPlaying으로 이름변경
                 // 변수명 변경하는법
                 data: {results : nowPlaying }
-            } = await moviesApi.nowPlaying();
-            const {
+            } = await moviesApi.nowPlaying());
+            ({
                 data: { results: upcoming }
-            } = await moviesApi.upcoming();
+            } = await moviesApi.upcoming());
 
-            const {
+            ({
                 data: { results: popular}
-            } = await moviesApi.popular();
+            } = await moviesApi.popular());
 
-            this.setState({
-                nowPlaying,
-                upcoming,
-                popular
-            });
-        }catch(error) {
-            this.setState({
-                error: "Can't find Movies information."
-            });
+        }catch{
+            error=  "Can't find Movies information.";
         }finally{
             this.setState({
-                loading: false
-            })
+                loading: false,
+                nowPlaying,
+                upcoming,
+                popular,
+                error
+            });
         }
     }
 

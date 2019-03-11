@@ -30,26 +30,24 @@ export default class extends React.Component{
     };
 
     searchByTerm = async() => {
+        let movieResults, tvResults,error;
         const { searchTerm } = this.state;
         this.setState({ lading: true });
         try{
-            const {
+            ({
                 data: {results : movieResults }
-            } = await moviesApi.search(searchTerm);
-            const {
+            } = await moviesApi.search(searchTerm));
+            ({
                 data: {results : tvResults }
-            } = await tvApi.search(searchTerm);
-            this.setState({
-                movieResults,
-                tvResults
-            });
-        }catch(error){
-            this.setState({
-                error: "Cant find results."
-            });
+            } = await tvApi.search(searchTerm));
+        }catch{
+            error= "Cant find results."
         }finally{
             this.setState({
-                loading: false
+                loading: false,
+                movieResults,
+                tvResults,
+                error
             });
         }
     }

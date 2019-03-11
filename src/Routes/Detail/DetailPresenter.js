@@ -69,7 +69,6 @@ const Overview = styled.p`
     opacity: 0.7;
     line-height: 1.5;
     width: 50%;
-    height: 145px;
 `;
 
 const Imdb = styled.div`
@@ -112,16 +111,14 @@ const TabContainer = styled.div`
 
 const TabContent = styled.div`
     width: 100%;
-    height: 482px;
-    overflow-y: auto;
     display: 
         ${props => props.current ? "block" : "none"};
 `;
 
 const Youtube = styled.iframe`
-    width: 200px;
-    height: 200px;
+    width: 30%;
     padding: 10px;
+    
 `;
 
 const CompanyContainer = styled.div`
@@ -201,7 +198,7 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                     <TabContent current={current === "youtube"}>
                         {result.videos.results && 
                             result.videos.results.length > 0 ?
-                            result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} />)
+                            result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} frameborder="0"  allowFullScreen />)
                             : <div><p>Can't find video</p></div>
                         }
                     </TabContent>

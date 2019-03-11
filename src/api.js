@@ -18,10 +18,11 @@ export const moviesApi = {
         }
     }),
     search: (term) => api.get("/search/movie", {
-        params: {
-            query: encodeURIComponent(term)
-        }
-    })
+            params: {
+                query: decodeURIComponent(encodeURIComponent(term))
+            }
+        })
+    
 };
 
 export const tvApi = {
