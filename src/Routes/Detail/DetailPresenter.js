@@ -123,22 +123,21 @@ const Youtube = styled.iframe`
 
 const CompanyContainer = styled.div`
     display: inline-block;
-    width: 300px;
-    height: 300px;
+    width: 200px;
     margin-top: 10px;
 `;
 
 const CompanyLogo = styled.div`
     display: inline-block;
-    width: 300px;
-    height: 250px;
+    width: 100%;
+    height: 100px;
     background-image:url(${props => props.companyImg});
     background-repeat: no-repeat;
     background-size: contain;
+    margin-bottom: 10px;
 `;
 
 const CompanyTitle = styled.span`
-
 `;
 
 
