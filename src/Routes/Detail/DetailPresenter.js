@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "../../Components//Loader";
 import Message from "../../Components/Message";
-
+import { Link } from"react-router-dom";
 const Container = styled.div`
     height: calc(100vh - 50px);
     width: 100%;
@@ -198,7 +198,10 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                         {result.videos.results && 
                             result.videos.results.length > 0 ?
                             result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} frameborder="0"  allowFullScreen />)
-                            : <div><p>Can't find video</p></div>
+                            : 
+                            <CompanyContainer>
+                                <CompanyTitle>Can't find video</CompanyTitle>
+                            </CompanyContainer>
                         }
                     </TabContent>
                     <TabContent current={current === "company"}>
@@ -210,19 +213,21 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                                     <CompanyTitle>{company.name}({company.origin_country})</CompanyTitle>
                                 </CompanyContainer>    
                             )
-                            : <div><p>Can't find video</p></div>
+                            : <CompanyContainer><CompanyTitle>Can't find video</CompanyTitle></CompanyContainer>
                         }
                     </TabContent>
                     <TabContent current={current === "collection"}>
                             {result.belongs_to_collection &&
-                                <CompanyContainer>
-                                <CompanyLogo 
-                                    companyImg={
-                                        result.belongs_to_collection.poster_path &&
-                                        `https://image.tmdb.org/t/p/w300${result.belongs_to_collection.poster_path}`
-                                    }/>
-                                <CompanyTitle>{result.belongs_to_collection.name}</CompanyTitle>
-                            </CompanyContainer>
+                                <Link to={`/collections/${result.belongs_to_collection.id}`}>
+                                    <CompanyContainer>
+                                    <CompanyLogo 
+                                        companyImg={
+                                            result.belongs_to_collection.poster_path &&
+                                            `https://image.tmdb.org/t/p/w300${result.belongs_to_collection.poster_path}`
+                                        }/>
+                                    <CompanyTitle>{result.belongs_to_collection.name}</CompanyTitle>
+                                    </CompanyContainer>
+                                </Link>
                             }
                     </TabContent>
                 </TabContainer>
