@@ -116,9 +116,33 @@ const TabContent = styled.div`
 `;
 
 const Youtube = styled.iframe`
-    width: 30%;
-    padding: 10px;
-    
+    float: left;
+    width: 60%;
+    height: 500px;
+    padding: 0 10px;
+`;
+
+const YoutubeList = styled.ul`
+    margin-top : 10px;
+`;
+
+const YoutubeItemImg = styled.div`
+    display: inline-block;
+    width:20px;
+    height: 20px;
+    background-image: url(${props => props.bgUrl});
+    background-position: center center;
+    background-size: cover;
+`;
+
+const YoutubeItem = styled.li`
+    margin-top: 10px;
+    font-size: 14px;
+    cursor:pointer;
+    &:hover {
+        color: gray;
+        font-size: 16px;
+    }
 `;
 
 const CompanyContainer = styled.div`
@@ -195,14 +219,25 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                         </List>
                     </TabMenu>
                     <TabContent current={current === "youtube"}>
+                        <YoutubeList>
                         {result.videos.results && 
                             result.videos.results.length > 0 ?
-                            result.videos.results.map((src) => <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} frameborder="0"  allowFullScreen />)
+                            
+                            result.videos.results.map((src, index) => (
+                                    index === 0 ? <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} frameborder="0"  allowFullScreen /> : 
+                                            <YoutubeItem key={src.id} onClick={() => window.open(`https://www.youtube.com/embed/${src.key}`)}>
+                                                <YoutubeItemImg bgUrl={require("../../assets/Youtube.png")}  />
+                                                {src.name}
+                                            </YoutubeItem>
+                                    )
+                                )
+                            
                             : 
                             <CompanyContainer>
                                 <CompanyTitle>Can't find video</CompanyTitle>
                             </CompanyContainer>
                         }
+                        </YoutubeList>
                     </TabContent>
                     <TabContent current={current === "company"}>
                         {result.production_companies && 
