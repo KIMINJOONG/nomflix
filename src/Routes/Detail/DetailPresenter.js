@@ -124,6 +124,7 @@ const Youtube = styled.iframe`
 
 const YoutubeList = styled.ul`
     margin-top : 10px;
+    
 `;
 
 const YoutubeItemImg = styled.div`
@@ -131,7 +132,7 @@ const YoutubeItemImg = styled.div`
     width:20px;
     height: 20px;
     background-image: url(${props => props.bgUrl});
-    background-position: center center;
+    background-position-y: 4px;
     background-size: cover;
 `;
 
@@ -143,20 +144,23 @@ const YoutubeItem = styled.li`
         color: gray;
         font-size: 16px;
     }
+    
 `;
 
 const CompanyContainer = styled.div`
     display: inline-block;
-    width: 200px;
+    width: 100px;
     margin-top: 10px;
+    text-align: center;
 `;
 
 const CompanyLogo = styled.div`
     display: inline-block;
     width: 100%;
-    height: 100px;
+    height: 50px;
     background-image:url(${props => props.companyImg});
     background-repeat: no-repeat;
+    background-position: center center;
     background-size: contain;
     margin-bottom: 10px;
 `;
