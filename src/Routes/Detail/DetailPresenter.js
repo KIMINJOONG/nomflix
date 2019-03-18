@@ -170,7 +170,7 @@ const CompanyTitle = styled.span`
 
 
 
-const DetailPresenter = ({ result, loading, error, current, handleCurrent }) => 
+const DetailPresenter = ({ result, loading, error, current, handleCurrent, handleYoutube, youtubeKey }) => 
     loading ? (
         <>
         <Helmet>
@@ -228,8 +228,8 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent }) =>
                             result.videos.results.length > 0 ?
                             
                             result.videos.results.map((src, index) => (
-                                    index === 0 ? <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${src.key}`} frameborder="0"  allowFullScreen /> : 
-                                            <YoutubeItem key={src.id} onClick={() => window.open(`https://www.youtube.com/embed/${src.key}`)}>
+                                    index === 0 ? <Youtube key={src.id} title={src.name} src={`https://www.youtube.com/embed/${youtubeKey !== "" ? youtubeKey : src.key}`} frameborder="0"  allowFullScreen /> : 
+                                            <YoutubeItem key={src.id} onClick={() => handleYoutube(src.key)}>
                                                 <YoutubeItemImg bgUrl={require("../../assets/Youtube.png")}  />
                                                 {src.name}
                                             </YoutubeItem>

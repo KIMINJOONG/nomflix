@@ -11,13 +11,20 @@ export default class extends React.Component{
             error: null,
             loading: true,
             isMovie: pathname.includes("/movie/"),
-            current: "youtube"
+            current: "youtube",
+            youtubeKey :""
         };
     }
 
     handleCurrent = (currentState) => {
         this.setState({
             current: currentState
+        });
+    }
+
+    handleYoutube = (youtubeKey) => {
+        this.setState({
+            youtubeKey
         });
     }
 
@@ -61,7 +68,8 @@ export default class extends React.Component{
     
 
     render() {
-        const { result, error, loading, current } = this.state;
+        const { result, error, loading, current,youtubeKey } = this.state;
+        const { handleYoutube } = this;
         console.log(result);
         return (
             <DetailPresenter 
@@ -70,6 +78,8 @@ export default class extends React.Component{
                 loading={loading}
                 handleCurrent={this.handleCurrent}
                 current={current}
+                handleYoutube={handleYoutube}
+                youtubeKey={youtubeKey}
             />
         );
     }
