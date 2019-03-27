@@ -6,6 +6,7 @@ import Header from "../Components/Header";
 import Search from "../Routes/Search";
 import Detail from "../Routes/Detail";
 import Private from "../Routes/Private";
+import Collections from "../Routes/Collections";
 
 export default () => (
     <Router>
@@ -18,7 +19,7 @@ export default () => (
                 <Route path="/movie/:id" component={Detail} />
                 <Route path="/show/:id" component={Detail} />
                 <Route path="/private" component={Private} />
-                <Route path="/collections/:id" component={Detail} />
+                <Route path="/collections/:id" component={Collections} />
                 <Redirect from="*" to="/" />
             </Switch>
         </>
