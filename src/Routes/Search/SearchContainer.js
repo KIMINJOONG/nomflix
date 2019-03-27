@@ -4,7 +4,7 @@ import { moviesApi, tvApi } from "../../api";
 
 export default class extends React.Component{
     state = {
-        movieResults: null
+        result : null
         , tvResults: null
         , searchTerm: ""
         , loading: false
