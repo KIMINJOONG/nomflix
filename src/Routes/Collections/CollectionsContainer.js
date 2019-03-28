@@ -28,7 +28,7 @@ class CollectionsContainer extends Component {
 
         try{
             ({
-               data:  result 
+               data :  result 
             } = await moviesApi.collections(parsedId));
         }catch{
             error = "Can't find collections";
@@ -41,9 +41,15 @@ class CollectionsContainer extends Component {
         }
     }
     render() {
-        console.log(this.state);
+        const {result, loading, error} = this.state;
+        console.log(result);
         return(
-            <CollectionsPresenter />
+            <CollectionsPresenter
+                collectionName = {result && result.name} 
+                result = {result && result.parts}
+                loading = {loading}
+                error = {error}
+            />
         );
     };
 };
