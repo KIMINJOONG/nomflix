@@ -220,6 +220,12 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent, handl
                             <TabItem onClick={() =>handleCurrent("collection")} current={current === "collection"}>
                                     콜렉션
                             </TabItem>
+                            <TabItem onClick={() =>handleCurrent("siriz")} current={current === "siriz"}>
+                                    시리즈
+                            </TabItem>
+                            <TabItem onClick={() =>handleCurrent("creator")} current={current === "creator"}>
+                                    제작자
+                            </TabItem>
                         </List>
                     </TabMenu>
                     <TabContent current={current === "youtube"}>
@@ -268,6 +274,32 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent, handl
                                     </CompanyContainer>
                                 </Link>
                             }
+                    </TabContent>
+                    <TabContent current={current === "siriz"}>
+                            {result.belongs_to_collection &&
+                                <Link to={`/collections/${result.belongs_to_collection.id}`}>
+                                    <CompanyContainer>
+                                    <CompanyLogo 
+                                        companyImg={
+                                            result.belongs_to_collection.poster_path &&
+                                            `https://image.tmdb.org/t/p/w300${result.belongs_to_collection.poster_path}`
+                                        }/>
+                                    <CompanyTitle>{result.belongs_to_collection.name}</CompanyTitle>
+                                    </CompanyContainer>
+                                </Link>
+                            }
+                    </TabContent>
+                    <TabContent current={current === "creator"}>
+                        {result.production_companies && 
+                            result.production_companies.length > 0 ?
+                            result.production_companies.map((company) => company.logo_path && 
+                                <CompanyContainer key={company.id}>
+                                    <CompanyLogo companyImg={`https://image.tmdb.org/t/p/w300${company.logo_path}`}/>
+                                    <CompanyTitle>{company.name}({company.origin_country})</CompanyTitle>
+                                </CompanyContainer>    
+                            )
+                            : <CompanyContainer><CompanyTitle>Can't find video</CompanyTitle></CompanyContainer>
+                        }
                     </TabContent>
                 </TabContainer>
             </Data>
