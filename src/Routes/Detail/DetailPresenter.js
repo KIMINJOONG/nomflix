@@ -276,17 +276,19 @@ const DetailPresenter = ({ result, loading, error, current, handleCurrent, handl
                             }
                     </TabContent>
                     <TabContent current={current === "siriz"}>
-                            {result.belongs_to_collection &&
-                                <Link to={`/collections/${result.belongs_to_collection.id}`}>
+                            {result.seasons && 
+                                result.seasons.length > 0 ?
+                                result.seasons.map(season => 
                                     <CompanyContainer>
                                     <CompanyLogo 
                                         companyImg={
-                                            result.belongs_to_collection.poster_path &&
-                                            `https://image.tmdb.org/t/p/w300${result.belongs_to_collection.poster_path}`
+                                            season.poster_path &&
+                                            `https://image.tmdb.org/t/p/w300${season.poster_path}`
                                         }/>
-                                    <CompanyTitle>{result.belongs_to_collection.name}</CompanyTitle>
+                                    <CompanyTitle>{season.name}</CompanyTitle>
                                     </CompanyContainer>
-                                </Link>
+                                ) : <CompanyContainer><CompanyTitle>Can't find Seasons</CompanyTitle></CompanyContainer>
+                                
                             }
                     </TabContent>
                     <TabContent current={current === "creator"}>
